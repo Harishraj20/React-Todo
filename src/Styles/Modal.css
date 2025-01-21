@@ -1,0 +1,78 @@
+
+  .modal {
+    position: fixed;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background: linear-gradient(to right, #c1c1c4, #ffffff);
+    height: 25%;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 25%;
+    text-align: center;
+    border-radius: 5px;
+  }
+  #modalText {
+    font-size: larger;
+    color: #120b4b;
+    height: 40%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .close-modal {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    height: 15%;
+}
+.close-bt{
+    background: none;
+    outline: none;
+    border: none;
+    width: 5%;
+    height: 100%;
+    font-size: 25px;
+    cursor: pointer;
+
+}
+p {
+    height: 60%;
+}
+.button-hold{
+    height: 25%;
+    display: flex;
+    gap: 20%;
+}
+.modal-button{ 
+   
+    background: transparent;
+    border: none;
+    width: 40%;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: large;
+    color: white;
+}
+#yes-button{
+    background-color: #4caf50;
+}
+#no-button{
+    background-color: rgb(236, 43, 43);
+}
+.modal-message{
+    font-size: large;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,260 @@
+
+html,
+body {
+  height: 100%;
+}
+/* form{
+  padding: 0% 12% 0 12%;
+} */
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.task-container {
+  display: flex
+;
+  justify-content: center;
+  width: 100%;
+  height: 67%;
+  /* padding-right: 8%; */
+  /* padding-left: 14%; */
+}
+
+
+div#root {
+  width: 40%;
+  height: 70%;
+  border-radius: 15px;
+}
+div#root:hover{
+  box-shadow: 0 0 15px 4px rgba(19, 19, 61, 0.6);
+  transition: box-shadow 0.3s ease-in-out;
+}
+/* div#root {
+  background-color: rgb(241, 207, 156);
+
+} */
+h2 {  display: flex;
+  justify-content: center;
+  align-items: center;  
+  text-align: center;
+  padding-top: 5%;
+  height: 10%;
+  color: #333;
+  margin-bottom: 5%;
+}
+form{
+  border-radius: 40px;
+
+  background-color: #edeef0;
+  width: 85%;
+  display: flex;
+}
+
+.container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+}
+
+label {
+  display: block;
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.action-button {
+  border: none;
+  outline: none;
+  color: white;
+  background-color: #e94e77;
+  cursor: pointer;
+  width: 20%;
+  font-size: large;  border-radius: 40px;
+}
+
+.error-tag {
+  height: 100%;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.task-container ul::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+.task-container ul::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 5px;
+}
+
+.task-container ul::-webkit-scrollbar-thumb {
+  background: #e94e77;
+  border-radius: 10px;
+}
+
+ul {
+  width: 75%;
+  height: 100%;
+  overflow: auto;
+  list-style-type: none;
+  margin-top: 20px;
+}
+
+input {
+  background-color: transparent;
+  width: 75%;
+  padding: 10px;
+  font-size: large;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  transition: border-color 0.3s;
+  text-indent: 4%;
+}
+input {
+  flex: 1;
+  outline: none;
+  border: none;
+}
+
+input:focus {
+  border-color: #4a90e2;
+  outline: none;
+}
+
+.input-Container {
+  padding: 0% 5% 0% 5%;
+  height: 8%;
+  width: 100%;
+  display: flex
+;
+  justify-content: center;
+  align-items: center;
+}
+.button-holder {
+  padding: 0% 10% 0 10%;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 5%;
+  gap: 2%;
+}
+.error-msg {
+  height: 5%;
+}
+
+ul {
+  list-style-type: none;
+  margin-top: 20px;
+}
+
+.button-action,.button-action:disabled {
+  border: none;
+  background: none;
+  font-size: large;
+  cursor: pointer;
+  width: 30%;
+  height: 50%;
+}
+.button-action:disabled {
+ cursor: not-allowed;
+}
+
+li {
+  height: 15%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f9f9f9;
+  margin: 8px 0;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+
+li:hover {
+  background-color: #f1f1f1;
+}
+
+.todo-button {
+  display: flex;
+  width: 49%;
+  gap: 10%;
+}
+
+
+img {
+  height: 100%;
+  width: 42%;
+}
+
+.content-holder {
+  padding-top: 5%;
+  width: 100%;
+  height: 55%;
+  mix-blend-mode: multiply;
+  margin: auto;
+  border-radius: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.task-name{
+  padding: 4%;
+  height: 100%;
+  width: 90%;
+  color: #000000;
+  text-align: justify;
+}
+
+.category-Button {
+  width: 30%;
+  color: #201250;
+  font-size: large;
+  flex: 1;
+  cursor: pointer;
+  position: relative;
+  background: transparent;
+  border: none;
+}
+
+.button-holder .category-Button.active {
+  color: #e94e77;
+}
+
+.button-holder .category-Button.active::after {
+  width: 100%;
+}
+
+.button-holder .category-Button::after {
+  width: 10%;
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 4px;
+  background-color: #e94e77;
+  bottom: -5px;
+  left: 53%;
+  transform: translateX(-50%);
+  transition: all 0.3s ease-in-out;
+}
