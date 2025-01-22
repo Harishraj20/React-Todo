@@ -6,9 +6,7 @@ import "./fontAwesomeConfig";
 
 
 class App extends React.Component {
-  state = { color: "black" };
   render() {
-    console.log("Parent component updated");
     return <Todo />;
   }
 }

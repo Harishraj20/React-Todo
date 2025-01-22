@@ -12,13 +12,17 @@ const TaskList = ({
     <ul>
       {tasks.map((task) => (
         <li key={task.id}>
-          <p className="task-name"
+          <div className="task-name">
+          <p className="task-name-element"
             style={{
-              textDecoration: task.status ? "line-through" : "none",
+              color: task.status ? "grey" : "",
             }}
           >
             {task.name}
           </p>
+
+          </div>
+         
           <div className="todo-button">
             <button
               className="button-action"
