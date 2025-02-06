@@ -13,48 +13,49 @@ const TaskList = ({
       {tasks.map((task) => (
         <li key={task.id}>
           <div className="task-name">
-          <p className="task-name-element"
-            style={{
-              color: task.status ? "grey" : "",
-            }}
-          >
-            {task.name}
-          </p>
-
+            <p
+              className="task-name-element"
+              style={{
+                color: task.status ? "grey" : "",
+              }}
+            >
+              {task.name}
+            </p>
           </div>
-         
+
           <div className="todo-button">
             <button
               className="button-action"
+              aria-label="edit task"
               onClick={() => handleEdit(task.id)}
               disabled={activeStatus === "completed" || task.status}
             >
               <FontAwesomeIcon
                 icon="fa-solid fa-pen-to-square"
                 size="lg"
-                style={{ color: !task.status? "#e94e77" : "#e5e5e6" }}
-
+                style={{ color: !task.status ? "#e94e77" : "#e5e5e6" }}
               />{" "}
             </button>
             <button
+              aria-label="Delete task"
               className="button-action"
               onClick={() => handleDeleteModal(task.id)}
             >
               <FontAwesomeIcon
                 icon="fa-solid fa-trash"
                 size="lg"
-                style={{ color: !task.status? "#e94e77" : "#e5e5e6" }}
+                style={{ color: !task.status ? "#e94e77" : "#e5e5e6" }}
               />{" "}
             </button>
             <button
+              aria-label="toggle task"
               className="button-action"
               onClick={() => toggleChange(task.id)}
             >
               <FontAwesomeIcon
                 icon="fa-solid fa-circle-check"
                 size="lg"
-                style={{ color: !task.status? "#e94e77" : "#e5e5e6" }}
-
+                style={{ color: !task.status ? "#e94e77" : "#e5e5e6" }}
               />
             </button>
           </div>

@@ -49,7 +49,6 @@
     height: 60%;
 }
 .task-name-element{
-    
     white-space: nowrap;      /* Prevents text from wrapping to a new line */
     overflow: hidden;         /* Hides overflowing content */
     text-overflow: ellipsis;

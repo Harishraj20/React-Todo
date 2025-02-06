@@ -53,6 +53,7 @@ export default class Todo extends Component {
 
     if (userInput.trim() === "") {
       this.displayMessage("Task Name cannot be empty!", "red");
+      this.setState({ userInput: "" });
       return;
     }
 
@@ -125,7 +126,7 @@ export default class Todo extends Component {
       }
       return task;
     });
-    
+
     this.setState(
       { taskList: updatedTaskList, filterTask: updatedTaskList },
       () => {
@@ -137,17 +138,11 @@ export default class Todo extends Component {
 
   handleEdit = (id) => {
     const { taskList } = this.state;
-
     const taskToEdit = taskList.find((task) => task.id === id);
-
-    if (taskToEdit) {
-      this.setState({
-        userInput: taskToEdit.name,
-        editingIndex: id,
-      });
-    } else {
-      console.error(`Task with id ${id} not found.`);
-    }
+    this.setState({
+      userInput: taskToEdit.name,
+      editingIndex: id,
+    });
   };
 
   handleDeleteModal = (id) => {
@@ -185,10 +180,7 @@ export default class Todo extends Component {
   };
 
   completedTask = () => {
-    this.setState(
-      { activeStatus: "completed" },
-      this.updateFilteredTask
-    );
+    this.setState({ activeStatus: "completed" }, this.updateFilteredTask);
   };
 
   allTask = () => {
@@ -196,14 +188,11 @@ export default class Todo extends Component {
   };
 
   updateFilteredTask = () => {
-
     const { taskList, activeStatus } = this.state;
 
     let filteredTask;
     if (activeStatus === "assigned") {
-
       filteredTask = taskList.filter((task) => !task.status);
-
     } else if (activeStatus === "completed") {
       filteredTask = taskList.filter((task) => task.status);
     } else {
@@ -237,7 +226,7 @@ export default class Todo extends Component {
       updatedTaskList = taskList.filter((task) => task.status);
 
       this.displayMessage("Assigned tasks cleared successfully!", "green");
-    } else if (activeStatus === "completed") {
+    } else {
       updatedTaskList = taskList.filter((task) => !task.status);
       this.displayMessage("Completed tasks cleared successfully!", "green");
     }
@@ -283,22 +272,25 @@ export default class Todo extends Component {
         <div className="button-holder">
           <button
             onClick={this.allTask}
-            className={`category-Button ${this.state.activeStatus === "All" ? "active" : ""
-              }`}
+            className={`category-Button ${
+              this.state.activeStatus === "All" ? "active" : ""
+            }`}
           >
             All ({taskList.length})
           </button>
           <button
             onClick={this.assignedTask}
-            className={`category-Button ${this.state.activeStatus === "assigned" ? "active" : ""
-              }`}
+            className={`category-Button ${
+              this.state.activeStatus === "assigned" ? "active" : ""
+            }`}
           >
             Assigned ({taskList.filter((task) => !task.status).length})
           </button>
           <button
             onClick={this.completedTask}
-            className={`category-Button ${this.state.activeStatus === "completed" ? "active" : ""
-              }`}
+            className={`category-Button ${
+              this.state.activeStatus === "completed" ? "active" : ""
+            }`}
           >
             Completed ({taskList.filter((task) => task.status).length})
           </button>
@@ -336,8 +328,9 @@ export default class Todo extends Component {
             modalText={
               this.state.modalFor === "clear"
                 ? `Are you sure to clear ${activeStatus} tasks?`
-                : `Are you sure to delete the task " ${taskList.find((task) => task.id === taskId).name
-                } "?`
+                : `Are you sure to delete the task "${
+                    taskList.find((task) => task.id === taskId).name
+                  }"?`
             }
             closeModal={() =>
               this.setState({
