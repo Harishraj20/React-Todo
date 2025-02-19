@@ -30,6 +30,8 @@ export default class Todo extends Component {
     }
   }
 
+
+
   componentDidMount() {
     const savedTasks = localStorage.getItem("taskList");
     const savedTaskId = localStorage.getItem("taskId");
@@ -272,25 +274,22 @@ export default class Todo extends Component {
         <div className="button-holder">
           <button
             onClick={this.allTask}
-            className={`category-Button ${
-              this.state.activeStatus === "All" ? "active" : ""
-            }`}
+            className={`category-Button ${this.state.activeStatus === "All" ? "active" : ""
+              }`}
           >
             All ({taskList.length})
           </button>
           <button
             onClick={this.assignedTask}
-            className={`category-Button ${
-              this.state.activeStatus === "assigned" ? "active" : ""
-            }`}
+            className={`category-Button ${this.state.activeStatus === "assigned" ? "active" : ""
+              }`}
           >
             Assigned ({taskList.filter((task) => !task.status).length})
           </button>
           <button
             onClick={this.completedTask}
-            className={`category-Button ${
-              this.state.activeStatus === "completed" ? "active" : ""
-            }`}
+            className={`category-Button ${this.state.activeStatus === "completed" ? "active" : ""
+              }`}
           >
             Completed ({taskList.filter((task) => task.status).length})
           </button>
@@ -328,9 +327,8 @@ export default class Todo extends Component {
             modalText={
               this.state.modalFor === "clear"
                 ? `Are you sure to clear ${activeStatus} tasks?`
-                : `Are you sure to delete the task "${
-                    taskList.find((task) => task.id === taskId).name
-                  }"?`
+                : `Are you sure to delete the task "${taskList.find((task) => task.id === taskId).name
+                }"?`
             }
             closeModal={() =>
               this.setState({

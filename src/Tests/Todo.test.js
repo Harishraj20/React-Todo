@@ -144,13 +144,10 @@ describe("Testing TODO Component", () => {
   test("should delete the specific task when delete icon is clicked", async () => {
     addTask("Task 1");
     addTask("Task 2");
-    const task2DeleteButton = screen.getAllByLabelText(/delete task/i)[1];
-    fireEvent.click(task2DeleteButton);
-
+    fireEvent.click(screen.getAllByLabelText(/delete task/i)[1]);
     expect(
       screen.getByText('Are you sure to delete the task "Task 2"?')
     ).toBeInTheDocument();
-
     fireEvent.click(screen.getByRole("button", { name: /yes/i }));
     await waitFor(() => {
       expect(screen.queryByText("Task 2")).not.toBeInTheDocument();
@@ -161,16 +158,13 @@ describe("Testing TODO Component", () => {
   test("should edit the specific task when edit icon is clicked", async () => {
     addTask("Task 1");
     addTask("Task 2");
-
-    const editButtons = screen.getAllByLabelText(/edit task/i);
-    fireEvent.click(editButtons[1]);
+    fireEvent.click(screen.getAllByLabelText(/edit task/i)[1]);
 
     expect(screen.getByPlaceholderText("Enter Task").value).toBe("Task 2");
 
     fireEvent.change(screen.getByPlaceholderText("Enter Task"), {
       target: { value: "Updated Task 2" },
     });
-
     fireEvent.click(screen.getByRole("button", { name: /Update/i }));
     expect(screen.getByText("Updated Task 2")).toBeInTheDocument();
     expect(screen.queryByText("Task 2")).not.toBeInTheDocument();
