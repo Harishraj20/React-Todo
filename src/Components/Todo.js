@@ -19,7 +19,14 @@ export default class Todo extends Component {
     textColor: "",
   };
 
-  componentDidUpdate(prevState) {
+  componentDidUpdate(_, prevState) {
+    if (prevState.activeStatus !== this.state.activeStatus) {
+      this.updateFilteredTask();
+    }
+    if (prevState.taskList !== this.state.taskList) {
+      localStorage.setItem("taskList", JSON.stringify(this.state.taskList));
+      this.updateFilteredTask();
+    }
     if (
       this.state.errormessage &&
       prevState.errormessage !== this.state.errormessage
@@ -29,8 +36,6 @@ export default class Todo extends Component {
       }, 5000);
     }
   }
-
-
 
   componentDidMount() {
     const savedTasks = localStorage.getItem("taskList");
@@ -50,7 +55,7 @@ export default class Todo extends Component {
     });
   };
 
-  saveTask = () => {
+   saveTask = () => {
     const { userInput, editingIndex } = this.state;
 
     if (userInput.trim() === "") {
@@ -65,10 +70,13 @@ export default class Todo extends Component {
     }
 
     const storedTaskList = JSON.parse(localStorage.getItem("taskList")) || [];
-    let taskId = Number(localStorage.getItem("taskId")) || 1;
 
     // If editingIndex is null, add a new task
     if (editingIndex === null) {
+      let taskId = Number(localStorage.getItem("taskId")) || 1;
+
+      localStorage.setItem("taskId", taskId + 1);
+
       const newTask = {
         id: taskId,
         name: userInput.trim(),
@@ -76,20 +84,12 @@ export default class Todo extends Component {
       };
 
       const newTaskList = [...storedTaskList, newTask];
-
-      this.setState(
-        {
-          taskList: newTaskList,
-          filterTask: newTaskList,
-          userInput: "",
-          errormessage: "",
-        },
-        () => {
-          localStorage.setItem("taskList", JSON.stringify(newTaskList));
-          localStorage.setItem("taskId", taskId + 1);
-          this.displayMessage("Task Added Successfully", "green");
-        }
-      );
+      this.displayMessage("Task Added Successfully", "green");
+      this.setState({
+        taskList: newTaskList,
+        filterTask: newTaskList,
+        userInput: "",
+      });
     } else {
       // Update the existing task
       const updatedTaskList = storedTaskList.map((task) => {
@@ -98,21 +98,13 @@ export default class Todo extends Component {
         }
         return task;
       });
-
-      this.setState(
-        {
-          taskList: updatedTaskList,
-          filterTask: updatedTaskList,
-          userInput: "",
-          editingIndex: null,
-          errormessage: "",
-        },
-        () => {
-          localStorage.setItem("taskList", JSON.stringify(updatedTaskList));
-          this.updateFilteredTask();
-          this.displayMessage("Task Updated Successfully", "green");
-        }
-      );
+      this.displayMessage("Task Updated Successfully", "green");
+      this.setState({
+        taskList: updatedTaskList,
+        filterTask: updatedTaskList,
+        userInput: "",
+        editingIndex: null,
+      });
     }
   };
 
@@ -129,13 +121,7 @@ export default class Todo extends Component {
       return task;
     });
 
-    this.setState(
-      { taskList: updatedTaskList, filterTask: updatedTaskList },
-      () => {
-        localStorage.setItem("taskList", JSON.stringify(updatedTaskList));
-        this.updateFilteredTask();
-      }
-    );
+    this.setState({ taskList: updatedTaskList, filterTask: updatedTaskList });
   };
 
   handleEdit = (id) => {
@@ -155,19 +141,13 @@ export default class Todo extends Component {
     const { taskList, taskId } = this.state;
     const filteredTask = taskList.filter((task) => task.id !== taskId);
 
-    this.setState(
-      {
-        taskList: filteredTask,
-        filterTask: filteredTask,
-        isModalOpen: false,
-        taskId: null,
-        modalFor: "delete",
-      },
-      () => {
-        localStorage.setItem("taskList", JSON.stringify(filteredTask));
-        this.updateFilteredTask();
-      }
-    );
+    this.setState({
+      taskList: filteredTask,
+      filterTask: filteredTask,
+      isModalOpen: false,
+      taskId: null,
+      modalFor: "delete",
+    });
   };
 
   displayMessage = (message, color) => {
@@ -178,15 +158,15 @@ export default class Todo extends Component {
   };
 
   assignedTask = () => {
-    this.setState({ activeStatus: "assigned" }, this.updateFilteredTask);
+    this.setState({ activeStatus: "assigned" });
   };
 
   completedTask = () => {
-    this.setState({ activeStatus: "completed" }, this.updateFilteredTask);
+    this.setState({ activeStatus: "completed" });
   };
 
   allTask = () => {
-    this.setState({ activeStatus: "All" }, this.updateFilteredTask);
+    this.setState({ activeStatus: "All" });
   };
 
   updateFilteredTask = () => {
@@ -223,7 +203,8 @@ export default class Todo extends Component {
 
     if (activeStatus === "All") {
       updatedTaskList = [];
-      taskId = 0;
+      taskId = 1;
+      localStorage.setItem("taskId", taskId);
     } else if (activeStatus === "assigned") {
       updatedTaskList = taskList.filter((task) => task.status);
 
@@ -239,11 +220,6 @@ export default class Todo extends Component {
         filterTask: updatedTaskList,
         isModalOpen: false,
         modalFor: null,
-      },
-      () => {
-        localStorage.setItem("taskList", JSON.stringify(updatedTaskList));
-        localStorage.setItem("taskId", taskId);
-        this.updateFilteredTask();
       }
     );
   };
