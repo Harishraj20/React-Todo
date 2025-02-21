@@ -10,12 +10,12 @@ export default class Todo extends Component {
     userInput: "",
     taskList: [],
     filterTask: [],
-    editingIndex: null,
-    taskId: null,
+    editingIndex: 0,
+    taskId: 0,
     activeStatus: "All",
     errormessage: "",
     isModalOpen: false,
-    modalFor: null,
+    modalFor: "",
     textColor: "",
   };
 
@@ -35,6 +35,8 @@ export default class Todo extends Component {
         this.setState({ errormessage: "", color: "" });
       }, 5000);
     }
+    if (this.state.taskList.length === 0)
+      localStorage.setItem("taskId", JSON.stringify(1));
   }
 
   componentDidMount() {
@@ -55,7 +57,7 @@ export default class Todo extends Component {
     });
   };
 
-   saveTask = () => {
+  saveTask = () => {
     const { userInput, editingIndex } = this.state;
 
     if (userInput.trim() === "") {
@@ -72,7 +74,7 @@ export default class Todo extends Component {
     const storedTaskList = JSON.parse(localStorage.getItem("taskList")) || [];
 
     // If editingIndex is null, add a new task
-    if (editingIndex === null) {
+    if (editingIndex === 0) {
       let taskId = Number(localStorage.getItem("taskId")) || 1;
 
       localStorage.setItem("taskId", taskId + 1);
@@ -103,7 +105,7 @@ export default class Todo extends Component {
         taskList: updatedTaskList,
         filterTask: updatedTaskList,
         userInput: "",
-        editingIndex: null,
+        editingIndex: 0,
       });
     }
   };
@@ -145,7 +147,7 @@ export default class Todo extends Component {
       taskList: filteredTask,
       filterTask: filteredTask,
       isModalOpen: false,
-      taskId: null,
+      taskId: 0,
       modalFor: "delete",
     });
   };
@@ -214,14 +216,12 @@ export default class Todo extends Component {
       this.displayMessage("Completed tasks cleared successfully!", "green");
     }
 
-    this.setState(
-      {
-        taskList: updatedTaskList,
-        filterTask: updatedTaskList,
-        isModalOpen: false,
-        modalFor: null,
-      }
-    );
+    this.setState({
+      taskList: updatedTaskList,
+      filterTask: updatedTaskList,
+      isModalOpen: false,
+      modalFor: "",
+    });
   };
   render() {
     const {
@@ -309,8 +309,8 @@ export default class Todo extends Component {
             closeModal={() =>
               this.setState({
                 isModalOpen: false,
-                taskId: null,
-                modalFor: null,
+                taskId: 0,
+                modalFor: "",
               })
             }
           />

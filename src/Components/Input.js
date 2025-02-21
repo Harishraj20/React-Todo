@@ -18,7 +18,7 @@ const Input = ({ userInput, editingIndex, handleOnChange, saveTask }) => {
           autoFocus
         />
         <button type="submit" className="action-button">
-          {editingIndex === null ? "Add" : "Update"}
+          {editingIndex === 0 ? "Add" : "Update"}
         </button>
       </form>
     </div>
